@@ -20,9 +20,3 @@ jobs:
         run: npm run build
       - name: Create release
         uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            dist/index.js
-            package.json
-            action.yml
-            README.md
