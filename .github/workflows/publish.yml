@@ -14,7 +14,7 @@ on:
       - 'v*'
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     needs: publish
     permissions: write-all
