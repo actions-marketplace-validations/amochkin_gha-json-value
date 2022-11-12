@@ -2,13 +2,6 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      is_draft:
-        description: 'Is this release draft?'
-        default: 'false'
-      is_prerelease:
-        description: 'Is this prerelease?'
-        default: 'false'
   push:
     tags:
       - 'v*'
