@@ -18,13 +18,11 @@ jobs:
         run: npm install
       - name: Run build
         run: npm run build
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: ${{ github.event.inputs.is_draft }}
-          prerelease: ${{ github.event.inputs.is_prerelease }}
+          files: |
+            dist/index.js
+            package.json
+            action.yml
+            README.md
