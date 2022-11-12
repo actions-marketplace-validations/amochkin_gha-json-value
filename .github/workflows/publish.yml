@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      is_draft:
+        description: 'Is this release draft?'
+        default: 'false'
+      is_prerelease:
+        description: 'Is this prerelease?'
+        default: 'false'
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    needs: publish
+    permissions: write-all
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install modules
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: ${{ github.event.inputs.is_draft }}
+          prerelease: ${{ github.event.inputs.is_prerelease }}
