@@ -12,10 +12,12 @@ export const run = () => {
 		const jsonPath = property.split('.');
 		const jsonObject = JSON.parse(fs.readFileSync(file).toString());
 
+		core.startGroup('Debug');
 		core.debug(`file: ${file}`);
 		core.debug(`property: ${property}`);
 		core.debug(`jsonPath: ${jsonPath}`);
 		core.debug(`jsonObject: ${jsonObject}`);
+		core.endGroup();
 
 		if (!jsonObject) {
 			core.setFailed('Invalid JSON file');
@@ -24,7 +26,7 @@ export const run = () => {
 
 		const value = getValueByPath(jsonObject, jsonPath);
 
-		core.info(`File=${file} Property=${property} Value=${value}`);
+		core.notice(`File=${file} Property=${property} Value=${value}`);
 		core.setOutput('value', value);
 	} catch (error) {
 		if (error instanceof Error) {
