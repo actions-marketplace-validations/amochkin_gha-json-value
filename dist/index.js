@@ -2853,13 +2853,16 @@ var run = function () {
     var _a, _b;
     try {
         var file = external_path_.join(workspace, (_a = core.getInput('file')) !== null && _a !== void 0 ? _a : 'package.json');
-        var jsonPath = ((_b = core.getInput('property')) !== null && _b !== void 0 ? _b : '').split('.');
+        var property = (_b = core.getInput('property')) !== null && _b !== void 0 ? _b : 'version';
+        var jsonPath = property.split('.');
         var jsonObject = JSON.parse(external_fs_.readFileSync(file).toString());
         if (!jsonObject) {
             core.setFailed('Invalid JSON file');
             return;
         }
         var value = (0,cjs/* getValueByPath */.MU)(jsonObject, jsonPath);
+        // eslint-disable-next-line no-console
+        console.log("File=".concat(file, " Property=").concat(property, " Value=").concat(value));
         core.setOutput('value', value);
     }
     catch (error) {
