@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run action
-        uses: amochkin/gha-json-value@latest
+        uses: amochkin/gha-json-value@main
         id: test
         with:
           file: ${{ github.event.inputs.file }}
